@@ -29,14 +29,14 @@ export default function Rightbar({ user }) {
   useEffect(()=>{
     const fetchRecommendedFriends = async ()=>{
       try {
-        const suggestedFriends = await axios.get("/users/suggestedfriends");
+        const suggestedFriends = await axios.get("https://bhavesh-annam-facebook-clone.herokuapp.com/users/suggestedfriends");
         setRecommendedFriends(suggestedFriends.data); 
       } catch (err) {
         console.log(err);
       }
     }
     fetchRecommendedFriends();
-  },[])
+  },[]);
 
   useEffect(()=>{
     const fetchFriends = async ()=>{
