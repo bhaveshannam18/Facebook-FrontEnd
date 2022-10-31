@@ -61,7 +61,7 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
-          <img className="postImg" src={post.img?post.img:"/assets/post/1.jpeg"} alt="Error Loading Image" />
+          <img className="postImg" src={post.img?post.img:"assets/post/1.jpeg"} alt="Error Loading Image" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
