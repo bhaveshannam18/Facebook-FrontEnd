@@ -15,6 +15,7 @@ import Remove from '@mui/icons-material/Remove';
 export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends,setFriends] = useState([]);
+  const [recommendedFriends,setRecommendedFriends] = useState([]);  
   const {user:currentUser,dispatch} = useContext(AuthContext);
   const [followed,setFollowed] = useState(currentUser.followings.includes(user?.id));
   const history = useNavigate();
@@ -23,6 +24,19 @@ export default function Rightbar({ user }) {
   //useEffect(()=>{
     //setFollowed(currentUser.followings.includes(user?.id));
   //},[currentUser,user.id]);
+
+  //To Get All Recommended Friends
+  useEffect(()=>{
+    const fetchRecommendedFriends = async ()=>{
+      try {
+        const suggestedFriends = await axios.get("/users/suggestedfriends");
+        setRecommendedFriends(suggestedFriends.data); 
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchRecommendedFriends();
+  },[])
 
   useEffect(()=>{
     const fetchFriends = async ()=>{
@@ -69,10 +83,10 @@ export default function Rightbar({ user }) {
           </span>
         </div>
         <img className="rightbarAd" src="assets/ad.png" alt="" />
-        <h4 className="rightbarTitle">Online Friends</h4>
+        <h4 className="rightbarTitle">Recommended Friends</h4>
         <ul className="rightbarFriendList">
-          {Users.map((u) => (
-            <Online key={u.id} user={u} />
+        {recommendedFriends.map((oneUser) => (
+            <Online key={oneUser._id} user={oneUser} />
           ))}
         </ul>
       </>
